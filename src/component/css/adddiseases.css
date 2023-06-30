@@ -1,0 +1,63 @@
+.add-main-div{
+    display: flex;
+    width: 97%;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: white;
+}
+
+.add-btn{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.add-btn button{
+    width: 40%;
+    margin: 10px;
+    font-size: 20px;
+    font-weight: 400;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(165, 154, 154,0.5);
+    background-color: #f2f2f2;
+    letter-spacing: 2px;
+}
+.add-btn button:hover{
+    background-color: rgba(166, 233, 166,0.5);
+}
+.add-sub-div{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 10px;
+    border: 1px solid rgba(165, 154, 154,0.5);
+    padding: 20px;
+}
+
+.add-heading{
+    width: 100%;
+    margin-inline: 10px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.add-field-area{
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-field{
+    /* display: flex; */
+    margin: 10px;
+    width: 95%;
+}
