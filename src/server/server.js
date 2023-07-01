@@ -1,4 +1,5 @@
-const SERVER_URL="http://localhost:5000"
+// const SERVER_URL="http://localhost:5000"
+const SERVER_URL="https://medical-cares.glitch.me"
 const CLIENT_ID="494645546046-8tmr8u6uoi2cq74dksspn0lh11mkiepo.apps.googleusercontent.com"
 
 const authenticationRequest=async(url,body)=>{

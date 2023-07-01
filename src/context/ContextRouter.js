@@ -13,6 +13,7 @@ export default function ContextRouter(props) {
   const [getShowStatus,setShowStatus]=useState(1);
   const [getData,setData]=useState([])
   const [getLoading,setLoading]=useState(false)
+  const [getColumnsList,setColumnList]=useState([0,1,2,3,4,5])
   const fetchDiseases=async()=>{
     setLoading(true)
       try{
@@ -145,16 +146,18 @@ export default function ContextRouter(props) {
   useEffect(()=>{
     console.log(window.location.pathname)
       if(window.location.pathname=="/diseases"){
+        setColumnList([0,1,2,3,4,5])
         setShowStatus(1)
         fetchData(1)
       }
       else if(window.location.pathname=="/drugs"){
+        setColumnList([0,1])
         setShowStatus(0);
         fetchData(0)
       }
   },[window.location.pathname])
   return (
-    <ContextMain.Provider value={{fetchData,getData,getUser,handleLogout,setShowStatus,handleDelete,fetchUser,getLoading,setLoading,getDialog,setDialog,getError,setError,getUser,setUser,getShowStatus,setShowStatus,getData}}>
+    <ContextMain.Provider value={{getColumnsList,setColumnList,fetchData,getData,getUser,handleLogout,setShowStatus,handleDelete,fetchUser,getLoading,setLoading,getDialog,setDialog,getError,setError,getUser,setUser,getShowStatus,setShowStatus,getData}}>
         {props.children}
     </ContextMain.Provider>
   )

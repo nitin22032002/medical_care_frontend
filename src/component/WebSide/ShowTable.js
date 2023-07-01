@@ -11,6 +11,13 @@ import "../css/table.css"
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
 import ContextMain from '../../context/ContextMain';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
 
 export default function ShowTable(props) {
     const context=React.useContext(ContextMain)
@@ -38,6 +45,16 @@ export default function ShowTable(props) {
             })
             setData(data);
         }
+    }
+    const handleChange=(value)=>{
+        context.setColumnList(value.target.value);
+    }
+    const handleRender=(selected)=>{
+      console.log(selected)
+      let arr=selected.map((item)=>{
+        return props.columns[item].label
+      })
+      return arr.join(',')
     }
 
     const handleChangePage = (event, newPage) => {
@@ -71,6 +88,29 @@ export default function ShowTable(props) {
                                 </div>
 
                             </TableCell>
+                            <TableCell align="right" colSpan={5}>
+                            <FormControl sx={{ m: 1, width: 300 }}>
+        <InputLabel id="demo-multiple-checkbox-label">Select Columns</InputLabel>
+        <Select
+          labelId="demo-multiple-checkbox-label"
+          id="demo-multiple-checkbox"
+          multiple
+          value={context.getColumnsList}
+          onChange={handleChange}
+          input={<OutlinedInput label="Tag" />}
+          renderValue={handleRender}
+          // MenuProps={MenuProps}
+        >
+          {props.columns.map((name,index) => (
+            <MenuItem key={name} value={index}>
+              <Checkbox checked={context.getColumnsList.includes(index)} />
+              <ListItemText primary={name.label} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
+                            </TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell
@@ -80,7 +120,7 @@ export default function ShowTable(props) {
                             >
                                 Action
                             </TableCell>
-                            {columns.map((column) => (
+                            {columns.filter((item,index)=>{return context.getColumnsList.includes(index)}).map((column) => (
                                 <TableCell
                                     key={column.id}
                                     align={column.align}
@@ -101,13 +141,12 @@ export default function ShowTable(props) {
                                         <TableCell key="action" align="center" >
                                             <DeleteIcon style={{cursor:"pointer"}} onClick={()=>{handleDelete(row)}} />
                                         </TableCell>
-                                        {columns.map((column) => {
+                                        {columns.filter((item,index)=>{return context.getColumnsList.includes(index)}).map((column) => {
                                             const value = row[column.id];
                                             return (
                                                 <TableCell key={column.id} align={column.align}>
                                                     {
-                                                        column.id != props.list_column ? value :
-
+                                                        typeof(value)=="string" ? value :
                                                             value.map((item) => {
                                                                 return (<div className='target-items'>{item}</div>)
                                                             })

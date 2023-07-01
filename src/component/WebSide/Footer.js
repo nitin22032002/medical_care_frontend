@@ -5,7 +5,7 @@ export default function Footer() {
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-text">
-                2023 medicalcare.netlify.app. All Rights Reserved.
+                2023 Medical Cares. All Rights Reserved.
             </div>
         </div>
     </footer>

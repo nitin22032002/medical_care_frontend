@@ -1,5 +1,5 @@
 import { TextField } from '@mui/material'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import TagsInput from "react-tagsinput"
 import 'react-tagsinput/react-tagsinput.css'
 import "../css/adddiseases.css"
@@ -10,9 +10,12 @@ import { postRequest } from "../../server/server"
 export default function AddDiseases() {
   const [tags, setTags] = useState([]);
   const context = useContext(ContextMain)
-  const [getData, setData] = useState({ "diseases_name": "", "symptoms": "", "cvc_report": "", "specific_dignosis_report": "", "drugs": [], "discription": "" })
-  const handleTagsChange = (newTags) => {
-    setTags(newTags);
+  const [getTagValue,setTagValue]=useState("")
+  const [disTag,setDisTags]=useState([])
+  const [getDisValue,setDisValue]=useState("")
+  const [getData, setData] = useState({ "diseases_name": "", "symptoms": "", "cvc_report": "", "specific_dignosis_report": "", "drugs": [], "discription": [] })
+  const handleTagsChange = (newTags,callback) => {
+    callback(newTags);
   };
   const handleChange = (event, target) => {
     let data = getData
@@ -22,7 +25,7 @@ export default function AddDiseases() {
   const handleAdd = async () => {
     context.setLoading(true);
     try {
-      let body = { ...getData, drugs: tags };
+      let body = { ...getData, drugs: tags,discription:disTag };
       let res = await postRequest("/", body)
       if (res.status) {
         context.setError({ msg: "Diseases Added Success Fully", type: "success", status: true });
@@ -38,6 +41,13 @@ export default function AddDiseases() {
       context.setError({ msg: "Server Error...", type: "error", status: true });
     }
     context.setLoading(false);
+  }
+  const handleAddBtn=(tagsFuc,setTagsFuc,getTagValueFuc,setTagValueFuc)=>{
+    if(getTagValueFuc==""){return}
+      let arr=tagsFuc;
+      arr.push(getTagValueFuc)
+      setTagsFuc(arr);
+      setTagValueFuc("")
   }
 
   return (
@@ -62,10 +72,12 @@ export default function AddDiseases() {
               <TextField fullWidth variant='outlined' label="Specific Dignosis Report" onChange={(event) => { handleChange(event, "specific_dignosis_report") }} />
             </div>
             <div className='add-field'>
-              <TagsInput value={tags} onChange={handleTagsChange} onlyUnique={true} inputProps={{ placeholder: "Enter Drug.." }} />
+              <TagsInput inputValue={getTagValue} value={tags} onChangeInput={(event)=>{setTagValue(event)}} onChange={(newTags)=>{handleTagsChange(newTags,setTags)}} onlyUnique={true} inputProps={{ placeholder: "Enter Drug.."}} />
+              <button className='tags-btn' onClick={()=>{handleAddBtn(tags,setTags,getTagValue,setTagValue)}}>Add</button>
             </div>
             <div className='add-field'>
-              <TextField fullWidth variant='outlined' label="Discription" onChange={(event) => { handleChange(event, "discription") }} />
+            <TagsInput inputValue={getDisValue} value={disTag} onChangeInput={(event)=>{setDisValue(event)}} onChange={(newTags)=>{handleTagsChange(newTags,setDisTags)}} inputProps={{ placeholder: "Enter Discription.." }} />
+              <button className='tags-btn' onClick={()=>{handleAddBtn(disTag,setDisTags,getDisValue,setDisValue)}}>Add</button>
             </div>
             <div className='add-btn'>
               <button className='add-btn' onClick={handleAdd}>Add Diseases</button>
