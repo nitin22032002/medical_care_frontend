@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import ContextMain from "../../context/ContextMain";
-import { authenticationRequest,CLIENT_ID } from "../../server/server";
+import { authenticationRequest, CLIENT_ID } from "../../server/server";
 
 export default function GoogleUserLogin(props) {
   const context = useContext(ContextMain)

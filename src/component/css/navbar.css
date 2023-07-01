@@ -61,7 +61,7 @@
   text-decoration: none;
 }
 
-.alert{
+.alert {
   position: fixed;
   z-index: 500;
   top: 70px;
@@ -69,18 +69,20 @@
   width: 40%;
 }
 
-.loading-div{
+.loading-div {
   position: fixed;
   z-index: 1500;
   top: 50%;
   left: 50%;
   width: 40%;
 }
+
 /* Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -88,6 +90,7 @@
 
 /* Responsive */
 @media screen and (max-width: 768px) {
+
   /* Navbar sub-container */
   .navbar-sub-container {
     flex-direction: column;
@@ -110,16 +113,20 @@
     margin: 0 5px;
   }
 }
+
 @keyframes fadeInLogo {
   0% {
     opacity: 0.25;
   }
-  25%{
+
+  25% {
     opacity: 0.5;
   }
-  50%{
+
+  50% {
     opacity: 0.75;
   }
+
   100% {
     opacity: 1;
   }

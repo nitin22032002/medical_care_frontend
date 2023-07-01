@@ -4,7 +4,7 @@
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
-  
+
 }
 
 .dialog-background {
@@ -53,8 +53,10 @@
   top: 0;
   right: 0;
   cursor: pointer;
-  width: 20px; /* Adjust the size as needed */
-  height: 20px; /* Adjust the size as needed */
+  width: 20px;
+  /* Adjust the size as needed */
+  height: 20px;
+  /* Adjust the size as needed */
   background-color: red;
 }
 

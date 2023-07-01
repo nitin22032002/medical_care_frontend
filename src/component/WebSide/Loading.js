@@ -1,10 +1,9 @@
 import ContextMain from "../../context/ContextMain"
-import Dialog from "./Dialog"
 import React, { useContext } from 'react'
-import {Blocks} from "react-loader-spinner"
+import { Blocks } from "react-loader-spinner"
 
 export default function Loading() {
-    const context=useContext(ContextMain)
+    const context = useContext(ContextMain)
     return (
         context.getLoading && <div className="loading-div">
             <Blocks

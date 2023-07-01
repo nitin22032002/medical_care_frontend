@@ -1,4 +1,4 @@
-.add-main-div{
+.add-main-div {
     display: flex;
     width: 97%;
     margin: 10px;
@@ -9,13 +9,13 @@
     background-color: white;
 }
 
-.add-btn{
+.add-btn {
     width: 100%;
     display: flex;
     justify-content: center;
 }
 
-.add-btn button{
+.add-btn button {
     width: 40%;
     margin: 10px;
     font-size: 20px;
@@ -23,11 +23,12 @@
     cursor: pointer;
     padding: 10px;
     border-radius: 20px;
-    border: 1px solid rgba(165, 154, 154,0.5);
+    border: 1px solid rgba(165, 154, 154, 0.5);
     background-color: #f2f2f2;
     letter-spacing: 2px;
 }
-.tags-btn{
+
+.tags-btn {
     width: 10%;
     margin-top: 10px;
     font-size: 20px;
@@ -35,23 +36,25 @@
     cursor: pointer;
     padding: 10px;
     border-radius: 20px;
-    border: 1px solid rgba(165, 154, 154,0.5);
+    border: 1px solid rgba(165, 154, 154, 0.5);
     background-color: #f2f2f2;
     letter-spacing: 2px;
 }
-.add-btn button:hover{
-    background-color: rgba(166, 233, 166,0.5);
+
+.add-btn button:hover {
+    background-color: rgba(166, 233, 166, 0.5);
 }
-.add-sub-div{
+
+.add-sub-div {
     display: flex;
     flex-direction: column;
     width: 90%;
     margin: 10px;
-    border: 1px solid rgba(165, 154, 154,0.5);
+    border: 1px solid rgba(165, 154, 154, 0.5);
     padding: 20px;
 }
 
-.add-heading{
+.add-heading {
     width: 100%;
     margin-inline: 10px;
     text-align: center;
@@ -60,7 +63,7 @@
     letter-spacing: 2px;
 }
 
-.add-field-area{
+.add-field-area {
     width: 95%;
     display: flex;
     flex-direction: column;
@@ -68,7 +71,7 @@
     align-items: center;
 }
 
-.add-field{
+.add-field {
     /* display: flex; */
     margin: 10px;
     width: 95%;

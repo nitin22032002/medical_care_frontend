@@ -7,15 +7,15 @@ import ShowAlert from "../WebSide/ShowAlert"
 import Loading from "../WebSide/Loading";
 
 function UrlShortend() {
-  const context=useContext(ContextMain)
+  const context = useContext(ContextMain)
   return (
     <div>
-    <ShowAlert/>
-    <Loading/>
-    {context.getDialog.status && <Dialog>
-        {context.getDialog.tag=="login"?<Login/>:<SignUp/>}
-    </Dialog>}
-      </div>
+      <ShowAlert />
+      <Loading />
+      {context.getDialog.status && <Dialog>
+        {context.getDialog.tag == "login" ? <Login /> : <SignUp />}
+      </Dialog>}
+    </div>
   );
 }
 

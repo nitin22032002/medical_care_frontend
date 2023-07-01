@@ -1,15 +1,17 @@
 import { TextField } from '@mui/material'
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import TagsInput from "react-tagsinput"
 import Navbar from './Navbar'
 import Footer from "./Footer"
 import ContextMain from '../../context/ContextMain'
-import { postRequest } from "../../server/server"
+import { deleteRequest, postRequest } from "../../server/server"
 import 'react-tagsinput/react-tagsinput.css'
 import "../css/adddiseases.css"
-export default function AddDiseases() {
+import { useNavigate } from 'react-router'
+export default function EditDiseases() {
   const [tags, setTags] = useState([]);
   const context = useContext(ContextMain)
+  const history=useNavigate()
   const [getTagValue, setTagValue] = useState("")
   const [disTag, setDisTags] = useState([])
   const [getDisValue, setDisValue] = useState("")
@@ -17,7 +19,18 @@ export default function AddDiseases() {
   const [getSymptomsName, setSymptomsName] = useState("")
   const [getCvcReport, setCvcReport] = useState("")
   const [getReport, setReport] = useState("")
-  // const [getData, setData] = useState({ "diseases_name": "", "symptoms": "", "cvc_report": "", "specific_dignosis_report": "", "drugs": [], "discription": [] })
+  const setValue=()=>{
+    setTags(context.getSelectedItem.drugs_name)
+            setDiseasesName(context.getSelectedItem.diseases_name)
+            setDisTags(context.getSelectedItem.discription)
+            setSymptomsName(context.getSelectedItem.symptoms)
+            setCvcReport(context.getSelectedItem.cvc_report)
+            setReport(context.getSelectedItem.specific_dignosis_report)
+  }
+    useEffect(()=>{
+           setValue() 
+    },context.getSelectedItem)
+
   const handleTagsChange = (newTags, callback) => {
     callback(newTags);
   };
@@ -39,27 +52,32 @@ export default function AddDiseases() {
   const handleAdd = async () => {
     context.setLoading(true);
     try {
+      let deleteRes=await deleteRequest(`/?id=${context.getSelectedItem.diseases_name}&code=${1}`);
+      if(!deleteRes.status){
+        context.setError({ msg: "Server Error...", type: "error", status: true });
+        context.setLoading(false)
+        return
+      }
       let body = { "diseases_name": getDiseasesName, "symptoms": getSymptomsName, "cvc_report": getCvcReport, "specific_dignosis_report": getReport, drugs: tags, discription: disTag };
       let res = await postRequest("/", body)
       if (res.status) {
-        context.setError({ msg: "Diseases Added Success Fully", type: "success", status: true });
+        context.setError({ msg: "Diseases Edit Success Fully", type: "success", status: true });
         context.fetchData(1)
+        history("/diseases")
       }
       else {
-        context.setError({ msg: res.error, type: "warning", status: true });
+          context.setError({ msg: res.error, type: "warning", status: true });
+          setValue()
+        handleAdd()
       }
     }
     catch (e) {
       context.setError({ msg: "Server Error...", type: "error", status: true });
+      setValue()
+    handleAdd()
     }
     context.setLoading(false);
-    // setData({ diseases_name: "", symptoms: "", cvc_report: "", specific_dignosis_report: "", drugs: [], discription: [] })
-    setDiseasesName("")
-    setSymptomsName("")
-    setCvcReport("")
-    setReport("")
-    setDisTags([])
-    setTags([])
+    
   }
   const handleAddBtn = (tagsFuc, setTagsFuc, getTagValueFuc, setTagValueFuc) => {
     if (getTagValueFuc === "") { return }
@@ -75,7 +93,7 @@ export default function AddDiseases() {
       <div className='add-main-div'>
         <div className='add-sub-div'>
           <div className='add-heading'>
-            Add New Diseases
+            Edit Diseases
           </div>
           <div className='add-field-area'>
             <div className='add-field'>
@@ -99,7 +117,7 @@ export default function AddDiseases() {
               <button className='tags-btn' onClick={() => { handleAddBtn(disTag, setDisTags, getDisValue, setDisValue) }}>Add</button>
             </div>
             <div className='add-btn'>
-              <button className='add-btn' onClick={handleAdd}>Add Diseases</button>
+              <button className='add-btn' onClick={handleAdd}>Edit Diseases</button>
             </div>
           </div>
         </div>
